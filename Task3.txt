@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+public class Task3 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double temperature;
+        String sourceScale, targetScale;
+
+        // Prompt user for input
+        System.out.println("Temperature Converter:");
+        System.out.print("Enter the temperature value: ");
+        
+        // Input validation loop for temperature value
+        while (!scanner.hasNextDouble()) {
+            System.out.print("Invalid input. Please enter a valid temperature value: ");
+            scanner.next(); // consume the invalid input
+        }
+        temperature = scanner.nextDouble();
+
+        // Prompt user for source scale
+        System.out.print("Enter the source temperature scale (Celsius, Fahrenheit, or Kelvin): ");
+        sourceScale = scanner.next().toLowerCase();
+
+        // Prompt user for target scale
+        System.out.print("Enter the target temperature scale (Celsius, Fahrenheit, or Kelvin): ");
+        targetScale = scanner.next().toLowerCase();
+
+        // Convert temperature based on source and target scales
+        double resultTemperature = convertTemperature(temperature, sourceScale, targetScale);
+
+        // Display the converted temperature
+        System.out.println("Converted temperature: " + resultTemperature + " " + targetScale);
+        
+        scanner.close();
+    }
+
+    public static double convertTemperature(double temperature, String sourceScale, String targetScale) {
+        double resultTemperature = 0.0;
+
+        // Convert from source scale to Celsius
+        switch (sourceScale) {
+            case "celsius":
+                resultTemperature = temperature;
+                break;
+            case "fahrenheit":
+                resultTemperature = (temperature - 32) * 5 / 9;
+                break;
+            case "kelvin":
+                resultTemperature = temperature - 273.15;
+                break;
+            default:
+                System.out.println("Invalid source temperature scale.");
+                System.exit(0);
+        }
+
+        // Convert from Celsius to target scale
+        switch (targetScale) {
+            case "celsius":
+                return resultTemperature;
+            case "fahrenheit":
+                return (resultTemperature * 9 / 5) + 32;
+            case "kelvin":
+                return resultTemperature + 273.15;
+            default:
+                System.out.println("Invalid target temperature scale.");
+                System.exit(0);
+        }
+
+        return resultTemperature;
+    }
+}
